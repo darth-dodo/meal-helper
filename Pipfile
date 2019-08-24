@@ -20,6 +20,7 @@ psycopg2-binary = "*"
 whitenoise = "*"
 djangorestframework-jwt = "*"
 gunicorn = "*"
+django-filter = "*"
 
 [requires]
 python_version = "3.7"

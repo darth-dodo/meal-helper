@@ -21,6 +21,7 @@ urlpatterns = [
     url(r'^jet/', include('jet.urls', 'jet')),
     url(r'^auth/login/$', obtain_jwt_token),
     path(r'api-docs/', include_docs_urls(title='Meal Planner API')),
+    url(r'^api/meals/', include('meals.urls')),
     path(r'swagger-docs/', schema_view),
 ]
 

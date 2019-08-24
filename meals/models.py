@@ -120,6 +120,9 @@ class NutritionalInformation(AbstractRowInformation):
 
 
 class MealPlan(AbstractRowInformation, AbstractNameAndDescription):
+    """
+
+    """
     meals = models.ManyToManyField(to='meals.Meal', related_name='meal_plans')
 
     _MODEL_CODE = 'MP'
