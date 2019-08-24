@@ -82,7 +82,7 @@ class MealPlanViewSet(ReadOnlyMealAbstractViewSet):
     """
     handles ViewSet for Meal Plan
     """
-    serializer_class = MealPlan
+    serializer_class = MealPlanSerializer
     filter_fields = ['id', 'name', 'slug']
     search_fields = ['name', 'slug']
     queryset_class = MealPlan

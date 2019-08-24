@@ -46,7 +46,7 @@ class AbstractNameAndDescription(models.Model):
     """
 
     """
-    name = models.CharField(max_length=100, blank=False, null=False)
+    name = models.CharField(max_length=100, blank=False, null=False, unique=True)
     description = models.TextField(blank=True)
     slug = models.CharField(max_length=100, null=True, blank=True, unique=True)  # marked as blank to avoid django forms
 

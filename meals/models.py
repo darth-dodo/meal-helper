@@ -15,7 +15,7 @@ class MealType(AbstractRowInformation, AbstractNameAndDescription):
 
     """
 
-    _MODEL_CODE = 'MT-'
+    _MODEL_CODE = 'MT'
 
     class Meta:
         db_table = 'meal_types'
@@ -48,7 +48,7 @@ class Meal(AbstractRowInformation, AbstractNameAndDescription):
     foods = models.ManyToManyField(to='meals.Food', related_name='food_meals')
     tags = models.ManyToManyField(to='utils.Tag', related_name='tagged_meals', blank=True)
 
-    _MODEL_CODE = 'ML-'
+    _MODEL_CODE = 'ML'
 
     class Meta:
         db_table = 'meals'
