@@ -1,5 +1,4 @@
 from task1.sample_mealdata import MEAL_DATA
-from pprint import pprint
 
 
 def get_matching_meals(meal_data=MEAL_DATA, food_ids=[]):
@@ -50,6 +49,8 @@ def get_matching_meals(meal_data=MEAL_DATA, food_ids=[]):
 def __validate_food_ids(food_ids):
     """
 
+    Data type validations for food ids
+
     :param food_ids:
     :return:
     """
@@ -67,9 +68,17 @@ def __validate_food_ids(food_ids):
 def __transpose_by_food_id(meal_data, selective_food_ids=[]):
     """
 
-    :param meal_data:
-    :param food_ids:
-    :return: {1: [1, 2, 3], 10: [1, 3, 4]}
+    - Creating a transpose of Meals across Food Ids
+    - Optionally takes in selective food ids and creates a transpose only if the food id is present in
+    the selective ones in order to prevent creating a transpose of extra data
+
+    :param meal_data: List of Dicts containing nested list of dicts
+    :param food_ids: List of food ids
+    :return: {
+                1: [1, 2, 3],
+                10: [1, 3, 4]
+            }
+
             key: food_id
             value: list of meal_ids
 
