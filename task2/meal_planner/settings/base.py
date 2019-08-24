@@ -66,6 +66,7 @@ INSTALLED_APPS = [
 ]
 
 PROJECT_APPS = [
+    'utils'
 ]
 
 INSTALLED_APPS += PROJECT_APPS
@@ -133,11 +134,11 @@ REST_FRAMEWORK = {
         ),
 }
 
-# JWT_AUTH = {
-#     'JWT_RESPONSE_PAYLOAD_HANDLER':
-#         'utils.auth_utils.jwt_response_payload_handler',
-#     'JWT_EXPIRATION_DELTA': datetime.timedelta(days=30),
-# }
+JWT_AUTH = {
+    'JWT_RESPONSE_PAYLOAD_HANDLER':
+        'utils.auth_utils.jwt_response_payload_handler',
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(days=30),
+}
 
 LANGUAGE_CODE = 'en-us'
 
