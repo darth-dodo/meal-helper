@@ -12,16 +12,15 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.status import HTTP_400_BAD_REQUEST
 
-
 # project level imports
 from utils.views_utils import eager_load
+from utils.pagination import MealPlannerPagination
 
 # app level imports
-from meals.models import MealType, Meal, Food, MealPlan, NutritionalInformation
-# api level imports
+from meals.models import MealType, Meal, Food, MealPlan
 from meals.serializers import MealTypeSerializer, MealSerializer, MealPlanSerializer, FoodSerializer
+from meals.utils.meal_finder import get_matching_meals
 
-from utils.pagination import MealPlannerPagination
 
 
 logger = logging.getLogger(__name__)
@@ -99,14 +98,23 @@ class MealViewSet(ReadOnlyMealAbstractViewSet):
     queryset_class = Meal
     queryset = queryset_class.objects.none()
 
-    @action(detail=False, methods=['post'])
-    def sample_data(self, request):
+    @action(detail=False, methods=['get'])
+    def free(self, request):
+        """
+        Sample URL: http://localhost:8000/api/meals/meal/free?food_ids=1,11
+        :param request:
+        :return:
+        """
         logger.debug('Data: {0} | User: {1}'.format(self.request.data, self.request.user))
 
-        if False:
-            return Response({"errors": "Something went wrong"},
+        food_ids = dict(request.query_params).get('food_ids', [''])[0].split(',')
+
+        # todo: custom exception handler and middleware to parse it
+        try:
+            meal_ids = get_matching_meals(food_ids=food_ids)
+        except ValueError as e:
+            return Response({"errors": "Something went wrong: {0}".format(e.__str__())},
                             status=HTTP_400_BAD_REQUEST)
 
-        meal_ids = [2, 3]
         return Response({"meal_ids": meal_ids})
 
