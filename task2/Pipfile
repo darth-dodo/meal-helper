@@ -1,0 +1,24 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+
+[packages]
+django = "==2.2"
+djangorestframework = "==3.8.2"
+django-extensions = "*"
+ipython = "*"
+django-jet = "==1.0.7"
+raven = "*"
+dj-database-url = "*"
+django-querycount = "*"
+django-debug-toolbar = "*"
+django-rest-swagger = "*"
+psycopg2-binary = "*"
+whitenoise = "*"
+djangorestframework-jwt = "*"
+
+[requires]
+python_version = "3.7"
