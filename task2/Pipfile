@@ -19,6 +19,7 @@ django-rest-swagger = "*"
 psycopg2-binary = "*"
 whitenoise = "*"
 djangorestframework-jwt = "*"
+gunicorn = "*"
 
 [requires]
 python_version = "3.7"
