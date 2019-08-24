@@ -66,7 +66,8 @@ INSTALLED_APPS = [
 ]
 
 PROJECT_APPS = [
-    'utils'
+    'utils',
+    'meals'
 ]
 
 INSTALLED_APPS += PROJECT_APPS
