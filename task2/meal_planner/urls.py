@@ -19,7 +19,7 @@ admin.site.site_header = ADMIN_SITE_HEADER
 urlpatterns = [
     url(r'^', admin.site.urls),
     url(r'^jet/', include('jet.urls', 'jet')),
-    # url(r'^auth/login/$', obtain_jwt_token),
+    url(r'^auth/login/$', obtain_jwt_token),
     path(r'api-docs/', include_docs_urls(title='Meal Planner API')),
     path(r'swagger-docs/', schema_view),
 ]
