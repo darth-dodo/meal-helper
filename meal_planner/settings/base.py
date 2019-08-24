@@ -57,16 +57,17 @@ INSTALLED_APPS = [
 
     # third party apps
     'rest_framework',
+    'django_filters',
     'django_extensions',
     # installs a hook in Django that will automatically report uncaught exceptions.
     'raven.contrib.django.raven_compat',
 
-    #swagger app
     'rest_framework_swagger',
 ]
 
 PROJECT_APPS = [
-    'utils'
+    'utils',
+    'meals'
 ]
 
 INSTALLED_APPS += PROJECT_APPS
