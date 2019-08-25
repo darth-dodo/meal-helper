@@ -17,8 +17,8 @@ from meal_planner.settings.base import ADMIN_SITE_HEADER
 admin.site.site_header = ADMIN_SITE_HEADER
 
 urlpatterns = [
+    path('grappelli/', include('grappelli.urls')),  # grappelli URLS
     url(r'^', admin.site.urls),
-    url(r'^jet/', include('jet.urls', 'jet')),
     url(r'^auth/login/$', obtain_jwt_token),
     path(r'api-docs/', include_docs_urls(title='Meal Planner API')),
     url(r'^api/meals/', include('meals.urls')),
