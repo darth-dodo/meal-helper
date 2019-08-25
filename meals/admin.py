@@ -1,29 +1,55 @@
 from django.contrib import admin
-from jet.admin import CompactInline
 
 from meals.models import MealType, Meal, Food, NutritionalInformation, MealPlan
 
 # Register your models here.
-# admin.site.register(MealType)
-admin.site.register(Meal)
-admin.site.register(Food)
-admin.site.register(NutritionalInformation)
-admin.site.register(MealPlan)
-
-
-class MealTypesInline(CompactInline):
-    model = MealType
-    can_delete = False
-
-
-class MealTypesAdmin(admin.ModelAdmin):
-    list_display = ('__str__', 'description', 'slug', 'name')
+class MealAppAbstractAdmin(admin.ModelAdmin):
+    list_display = ['__str__', 'code', 'name', 'description', 'slug']
     search_fields = ['name', 'slug']
     list_display_links = ['__str__']
     readonly_fields = ('slug',)
+    ordering = ['-created_at']
+
+    class Meta:
+        abstract = True
+
+
+class MealTypeAdmin(MealAppAbstractAdmin):
 
     class Meta:
         model = MealType
 
 
-admin.site.register(MealType, MealTypesAdmin)
+admin.site.register(MealType, MealTypeAdmin)
+
+
+class MealAdmin(MealAppAbstractAdmin):
+    list_display = ['__str__', 'code', 'name', 'description', 'slug', 'meal_type']
+    list_filter = ['meal_type']
+
+    class Meta:
+        model = Meal
+
+
+admin.site.register(Meal, MealAdmin)
+
+
+class FoodAdmin(MealAppAbstractAdmin):
+
+    class Meta:
+        model = Food
+
+
+admin.site.register(Food, FoodAdmin)
+
+
+class MealPlanAdmin(MealAppAbstractAdmin):
+
+    class Meta:
+        model = MealPlan
+
+
+admin.site.register(MealPlan, MealPlanAdmin)
+
+
+admin.site.register(NutritionalInformation)
