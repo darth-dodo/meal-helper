@@ -48,12 +48,23 @@ def get_matching_meals(meal_data=MEAL_DATA, food_ids=[]):
     typecasted_food_ids = __validate_food_ids(food_ids)
 
     meals_by_food_id = __transpose_by_food_id(meal_data, typecasted_food_ids)
+
+    meals_present_in_all_foods = []
+
+    if not meals_by_food_id:
+        return meals_present_in_all_foods
+
+    if len(typecasted_food_ids) > len(meals_by_food_id.values()):
+        return meals_present_in_all_foods
+
+
     """
     - extra all the values (meal_ids) from the dict eg. [[1, 2, 3], [1, 3, 4]]
     - use this 2D array as input for set operations
     - find intersection between multiple food id to find cover meals which have all the food ids
     - convert it back into a list for consumption
     """
+
     meals_present_in_all_foods = list(set.intersection(*map(set, meals_by_food_id.values())))
 
     return meals_present_in_all_foods
