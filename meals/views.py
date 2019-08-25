@@ -28,7 +28,7 @@ logger = logging.getLogger(__name__)
 
 class ReadOnlyMealAbstractViewSet(viewsets.ReadOnlyModelViewSet):
     """
-    Abstract Parent Readonly ViewSet
+    Abstract Parent Readonly ViewSet for Meal App
     """
     authentication_classes = [JSONWebTokenAuthentication, SessionAuthentication, BasicAuthentication]
     permission_classes = [IsAuthenticated]
@@ -50,6 +50,11 @@ class ReadOnlyMealAbstractViewSet(viewsets.ReadOnlyModelViewSet):
 
     @eager_load
     def get_queryset(self):
+        """
+        Eager Loading the queryset by using a decorator which checks out `_SELECT_RELATED_FIELDS` AND
+        `PREFETCH_RELATED_FIELD` defined on the serializer level to prevent N + 1 queries
+        :return: queryset object
+        """
         logger.debug('Data: {0} | User: {1}'.format(self.request.data, self.request.user))
         queryset = self.queryset_class.objects.all()
         return queryset
@@ -57,7 +62,7 @@ class ReadOnlyMealAbstractViewSet(viewsets.ReadOnlyModelViewSet):
 
 class MealTypeViewSet(ReadOnlyMealAbstractViewSet):
     """
-    handles ViewSet for MealType
+    ReadOnly ModelViewSet for MealType
     """
     serializer_class = MealTypeSerializer
     filter_fields = ['id', 'name', 'slug']
@@ -68,7 +73,7 @@ class MealTypeViewSet(ReadOnlyMealAbstractViewSet):
 
 class FoodViewSet(ReadOnlyMealAbstractViewSet):
     """
-    handles ViewSet for Food
+    ReadOnly ModelViewSet for Food
     """
     serializer_class = FoodSerializer
     filter_fields = ['id', 'name', 'slug']
@@ -79,7 +84,7 @@ class FoodViewSet(ReadOnlyMealAbstractViewSet):
 
 class MealPlanViewSet(ReadOnlyMealAbstractViewSet):
     """
-    handles ViewSet for Meal Plan
+    ReadOnly ModelViewSet for MealPlan
     """
     serializer_class = MealPlanSerializer
     filter_fields = ['id', 'name', 'slug']
@@ -90,11 +95,13 @@ class MealPlanViewSet(ReadOnlyMealAbstractViewSet):
 
 class MealViewSet(ReadOnlyMealAbstractViewSet):
     """
-    handles ViewSet for Meal
+    ReadOnly ModelViewSet for Meal
 
-    with Food filter fetches all the Meals which are present in all of the foods passed as query param
-    Sample URL: http://localhost:8000/api/meals/meal/?with_food=1
+    `with_food` filter fetches all the Meals which are present in all of the foods passed as query param
+    Sample URL: https://meal-planner-hm.herokuapp.com/api/meals/meal/?with_food=2%2C4
 
+    `free` action is used to parse data through task 1 and fetch the relevant meal ids
+    Sample URL: https://meal-planner-hm.herokuapp.com/api/meals/meal/free?food_ids=1,11
     """
     serializer_class = MealSerializer
     filter_class = MealFilter
@@ -105,9 +112,9 @@ class MealViewSet(ReadOnlyMealAbstractViewSet):
     @action(detail=False, methods=['get'])
     def free(self, request):
         """
-        Sample URL: http://localhost:8000/api/meals/meal/free?food_ids=1,11
-        :param request:
-        :return:
+        Sample URL: https://meal-planner-hm.herokuapp.com/api/meals/meal/free?food_ids=1,11
+        :return Response 200: Object containing List of meal ids
+        :return Response 400: Validation error with message
         """
         logger.debug('Data: {0} | User: {1}'.format(self.request.data, self.request.user))
 

@@ -20,12 +20,18 @@ logger = logging.getLogger(__name__)
 
 
 class MealTypeSerializer(serializers.ModelSerializer):
+    """
+    Model Serializer for MealType
+    """
     class Meta:
         model = MealType
         fields = '__all__'
 
 
 class MealTypeMiniSerializer(serializers.ModelSerializer):
+    """
+    Mini Model Serializer for MealType
+    """
     class Meta:
         model = MealType
         fields = ('id', 'name', 'slug',)
@@ -33,7 +39,7 @@ class MealTypeMiniSerializer(serializers.ModelSerializer):
 
 class FoodSerializer(serializers.ModelSerializer, EagerLoadingSerializerMixin):
     """
-
+    Model Serializer for Food
     """
 
     tags = serializers.PrimaryKeyRelatedField(queryset=Tag.objects.all(), many=True)
@@ -47,7 +53,7 @@ class FoodSerializer(serializers.ModelSerializer, EagerLoadingSerializerMixin):
 
 class FoodMiniSerializer(serializers.ModelSerializer):
     """
-
+    Mini Model Serializer for Food
     """
 
     class Meta:
@@ -56,6 +62,9 @@ class FoodMiniSerializer(serializers.ModelSerializer):
 
 
 class MealSerializer(serializers.ModelSerializer, EagerLoadingSerializerMixin):
+    """
+    Eager Loaded Model Serializer for Meal
+    """
 
     meal_type = serializers.PrimaryKeyRelatedField(queryset=MealType.objects.all())
     foods = serializers.PrimaryKeyRelatedField(queryset=Food.objects.all(), many=True)
@@ -81,7 +90,7 @@ class MealSerializer(serializers.ModelSerializer, EagerLoadingSerializerMixin):
 
 class MealMiniSerializer(serializers.ModelSerializer):
     """
-
+    Mini Model Serializer for Meal
     """
 
     class Meta:
@@ -91,11 +100,11 @@ class MealMiniSerializer(serializers.ModelSerializer):
 
 class MealPlanSerializer(serializers.ModelSerializer, EagerLoadingSerializerMixin):
     """
-
+    Model Serializer for MealPlan
     """
     meals = serializers.PrimaryKeyRelatedField(queryset=Meal.objects.all(), many=True)
 
-    # _PREFETCH_RELATED_FIELDS = ['meals']
+    _PREFETCH_RELATED_FIELDS = ['meals']
 
     meals_data = serializers.SerializerMethodField()
 

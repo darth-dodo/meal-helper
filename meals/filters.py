@@ -14,7 +14,7 @@ from meals.models import Meal, Food
 
 class MealFilter(django_filters.FilterSet):
     """
-    Custom filter for meals viewset
+    Custom filter for Meal ViewSet
     """
     with_food = django_filters.Filter(method='filter_for_foods')
 

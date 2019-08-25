@@ -9,7 +9,7 @@
 ## Summary
 Web application for tracking Meals, Foods, MealPlans and Nutritional Information. Built using Django, Django REST Framework, Heroku, Metabase and Swagger
 
---
+---
 
 ## Installation
 ### Local instructions
@@ -45,3 +45,9 @@ Web application for tracking Meals, Foods, MealPlans and Nutritional Information
 ## API Documentation
 - [Interactive API Documentation generated using Swagger can be found here](https://meal-planner-hm.herokuapp.com/swagger-docs)
 - [API Documentation using the OpenAPI spec can be found over here](https://meal-planner-hm.herokuapp.com/api-docs)
+
+## Task 1 Implementation
+- Task 1 is implemented on the [`free` action](https://github.com/darth-dodo/meal-helper/blob/master/meals/views.py#L105) of the Meal ViewSet
+- It can be access using Postman with the following URL: [https://meal-planner-hm.herokuapp.com/api/meals/meal/free?food_ids=1,11](https://meal-planner-hm.herokuapp.com/api/meals/meal/free?food_ids=1,11)
+- The task has been reimplemented using DRF and Django Filters. Please check out the Swagger Docs for the implementation details
+
