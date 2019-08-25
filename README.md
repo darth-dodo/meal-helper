@@ -53,7 +53,7 @@ Web application for tracking Meals, Foods, MealPlans and Nutritional Information
 - [Pyenv](https://github.com/pyenv/pyenv): For multiple python env management
 - [Pipenv](https://pipenv-fork.readthedocs.io/en/latest/): For managing Pip files and environment variables 
 - [Postgres](https://www.postgresql.org): Open Source RDBMS Version above 9 to use `jsonb` if required
-- [Django](https://www.django-rest-framework.org): Between Bottle, Flask and Django; Django provides a much richer ecosystem and helps the user hit the ground running much faster as compared to Flask. Django 2.2 offers LTS.
+- [Django](https://docs.djangoproject.com/en/2.2/): Between Bottle, Flask and Django; Django provides a much richer ecosystem and helps the user hit the ground running much faster as compared to Flask. Django 2.2 offers LTS.
 - [Grappelli](https://django-grappelli.readthedocs.io/en/latest/index.html): Django Admin Panel replacement. Had to refactor from [Django Jet](https://github.com/darth-dodo/meal-helper/issues/9) as Jet is broken above Django 2.0
 - [Django REST Framework](https://www.django-rest-framework.org/): REST APIs with automagical CRUD and extendability
 - [DRF JWT](https://github.com/jpadilla/django-rest-framework-jwt): JWT for auth. Need to move towards [SimpleJWT](https://github.com/davesque/django-rest-framework-simplejwt)
