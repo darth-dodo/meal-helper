@@ -159,6 +159,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 
 ADMIN_SITE_HEADER = "Meal Planner"
+GRAPPELLI_ADMIN_TITLE = ADMIN_SITE_HEADER
 
 # logging setup
 # Disable Django's logging setup
