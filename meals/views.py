@@ -20,7 +20,7 @@ from utils.pagination import MealPlannerPagination
 from meals.models import MealType, Meal, Food, MealPlan
 from meals.serializers import MealTypeSerializer, MealSerializer, MealPlanSerializer, FoodSerializer
 from meals.utils.meal_finder import get_matching_meals
-
+from meals.filters import MealFilter
 
 
 logger = logging.getLogger(__name__)
@@ -91,9 +91,13 @@ class MealPlanViewSet(ReadOnlyMealAbstractViewSet):
 class MealViewSet(ReadOnlyMealAbstractViewSet):
     """
     handles ViewSet for Meal
+
+    with Food filter fetches all the Meals which are present in all of the foods passed as query param
+    Sample URL: http://localhost:8000/api/meals/meal/?with_food=1
+
     """
     serializer_class = MealSerializer
-    filter_fields = ['id', 'name', 'slug']
+    filter_class = MealFilter
     search_fields = ['name', 'slug']
     queryset_class = Meal
     queryset = queryset_class.objects.none()
