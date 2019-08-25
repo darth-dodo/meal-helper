@@ -36,7 +36,7 @@ Web application for tracking Meals, Foods, MealPlans and Nutritional Information
 - The Backend sandbox can be accessed using Django Admin Panel and [Grappelli](https://django-grappelli.readthedocs.io/en/latest/index.html) at [https://meal-planner-hm.herokuapp.com/](https://meal-planner-hm.herokuapp.com/) with the following credentials:
   - Username: admin@mp.com
   - password: `yummytummy`
-- The MetaBase App can be accessed over [here]() using the following credentials:
+- The MetaBase App can be accessed over at [https://meal-helper-metabase-demo.herokuapp.com/](https://meal-helper-metabase-demo.herokuapp.com/) using the following credentials:
   - Username: admin@mp.com
   - Password: `yummytummy1`
 - The Database Schema diagram can be found over [here](https://github.com/darth-dodo/meal-helper/blob/master/meal-planner-schema.png)
@@ -46,8 +46,29 @@ Web application for tracking Meals, Foods, MealPlans and Nutritional Information
 - [Interactive API Documentation generated using Swagger can be found here](https://meal-planner-hm.herokuapp.com/swagger-docs)
 - [API Documentation using the OpenAPI spec can be found over here](https://meal-planner-hm.herokuapp.com/api-docs)
 
-## Task 1 Implementation
+---
+
+## Implementation Choices
+- [Python3](https://docs.python.org/3/): Py2 is has reached EoL
+- [Pyenv](https://github.com/pyenv/pyenv): For multiple python env management
+- [Pipenv](https://pipenv-fork.readthedocs.io/en/latest/): For managing Pip files and environment variables 
+- [Postgres](https://www.postgresql.org): Open Source RDBMS Version above 9 to use `jsonb` if required
+- [Django](https://www.django-rest-framework.org): Between Bottle, Flask and Django; Django provides a much richer ecosystem and helps the user hit the ground running much faster as compared to Flask. Django 2.2 offers LTS.
+- [Grappelli](https://django-grappelli.readthedocs.io/en/latest/index.html): Django Admin Panel replacement. Had to refactor from [Django Jet](https://github.com/darth-dodo/meal-helper/issues/9) as Jet is broken above Django 2.0
+- [Django REST Framework](https://www.django-rest-framework.org/): REST APIs with automagical CRUD and extendability
+- [DRF JWT](https://github.com/jpadilla/django-rest-framework-jwt): JWT for auth. Need to move towards [SimpleJWT](https://github.com/davesque/django-rest-framework-simplejwt)
+- [Django Debug Toolbar](https://django-debug-toolbar.readthedocs.io/en/latest/): More efficient debugging + power shell
+- [Django Query Count](https://github.com/bradmontgomery/django-querycount): Relatively obscure library which prints out all the queries that happen behind any API request. Helps find bottle necks and duplicated queries
+- [Raven/Sentry](https://sentry.io): Capture bugs and stack traces in non prod env
+- [Heroku](https://www.heroku.com): Smooth and feature rich PaaS which helps you focus on Dev without fretting a lot about DevOps
+- [UnitTest](https://docs.python.org/3/library/unittest.html): Unit Tests for Task 1 using UnitTest Library since it is the standard library and fits the needs for now
+- [Django Filter](https://django-filter.readthedocs.io/en/master/): Helps build custom filters which can be dropped in with DRF
+- [Swagger UI](https://django-rest-swagger.readthedocs.io/en/latest/): De facto API Documentation Tool
+
+
+## Tasks Implementation
 - Task 1 is implemented on the [`free` action](https://github.com/darth-dodo/meal-helper/blob/master/meals/views.py#L105) of the Meal ViewSet
 - It can be access using Postman with the following URL: [https://meal-planner-hm.herokuapp.com/api/meals/meal/free?food_ids=1,11](https://meal-planner-hm.herokuapp.com/api/meals/meal/free?food_ids=1,11)
 - The task has been reimplemented using DRF and Django Filters. Please check out the Swagger Docs for the implementation details
+ 
 
