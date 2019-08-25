@@ -44,7 +44,7 @@ class AbstractRowInformation(models.Model):
 
 class AbstractNameAndDescription(models.Model):
     """
-
+    Abstract model to store name, description, slug and code generation logic
     """
     name = models.CharField(max_length=100, blank=False, null=False, unique=True)
     description = models.TextField(blank=True)

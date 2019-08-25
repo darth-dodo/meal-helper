@@ -12,7 +12,7 @@ from utils.model_utils import AbstractRowInformation, AbstractNameAndDescription
 
 class MealType(AbstractRowInformation, AbstractNameAndDescription):
     """
-
+    Model to store Meal Type
     """
 
     _MODEL_CODE = 'MT'
@@ -42,7 +42,7 @@ class MealType(AbstractRowInformation, AbstractNameAndDescription):
 
 class Meal(AbstractRowInformation, AbstractNameAndDescription):
     """
-
+    Model to store Meal
     """
     meal_type = models.ForeignKey(to='meals.MealType', related_name='meals', on_delete=models.PROTECT)
     foods = models.ManyToManyField(to='meals.Food', related_name='food_meals')
@@ -76,7 +76,7 @@ class Meal(AbstractRowInformation, AbstractNameAndDescription):
 
 class Food(AbstractRowInformation, AbstractNameAndDescription):
     """
-
+    Model to store Food
     """
     calories = models.PositiveIntegerField(default=0)  # positive integer field allows zero
     tags = models.ManyToManyField(to='utils.Tag', related_name='tagged_food', blank=True)
@@ -105,7 +105,7 @@ class Food(AbstractRowInformation, AbstractNameAndDescription):
 
 class NutritionalInformation(AbstractRowInformation):
     """
-
+    Model to store Nutritional Information
     """
     carbs = models.FloatField(validators=[MinValueValidator(limit_value=0)], default=0)
     fats = models.FloatField(validators=[MinValueValidator(limit_value=0)], default=0)
@@ -121,7 +121,7 @@ class NutritionalInformation(AbstractRowInformation):
 
 class MealPlan(AbstractRowInformation, AbstractNameAndDescription):
     """
-
+    Model to store Meal Plan
     """
     meals = models.ManyToManyField(to='meals.Meal', related_name='meal_plans')
 

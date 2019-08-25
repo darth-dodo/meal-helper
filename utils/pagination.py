@@ -1,4 +1,4 @@
-from rest_framework.pagination import  LimitOffsetPagination, PageNumberPagination
+from rest_framework.pagination import LimitOffsetPagination, PageNumberPagination
 
 
 from utils.constants import MAX_PAGINATION_LIMIT, DEFAULT_PAGINATION_LIMIT, PAGE_SIZE

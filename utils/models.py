@@ -5,7 +5,9 @@ from utils.model_utils import AbstractRowInformation, AbstractNameAndDescription
 
 
 class Tag(AbstractRowInformation, AbstractNameAndDescription):
-
+    """
+    Model to Store Tag
+    """
     _MODEL_CODE = 'TG'
 
     class Meta:
