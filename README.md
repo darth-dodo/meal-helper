@@ -64,11 +64,5 @@ Web application for tracking Meals, Foods, MealPlans and Nutritional Information
 - [UnitTest](https://docs.python.org/3/library/unittest.html): Unit Tests for Task 1 using UnitTest Library since it is the standard library and fits the needs for now
 - [Django Filter](https://django-filter.readthedocs.io/en/master/): Helps build custom filters which can be dropped in with DRF
 - [Swagger UI](https://django-rest-swagger.readthedocs.io/en/latest/): De facto API Documentation Tool
-
-
-## Tasks Implementation
-- Task 1 is implemented on the [`free` action](https://github.com/darth-dodo/meal-helper/blob/master/meals/views.py#L105) of the Meal ViewSet
-- It can be access using Postman with the following URL: [https://meal-planner-hm.herokuapp.com/api/meals/meal/free?food_ids=1,11](https://meal-planner-hm.herokuapp.com/api/meals/meal/free?food_ids=1,11)
-- The task has been reimplemented using DRF and Django Filters. Please check out the Swagger Docs for the implementation details
  
 
