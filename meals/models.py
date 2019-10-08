@@ -82,6 +82,8 @@ class Recipe(AbstractRowInformation, AbstractNameAndDescription):
     calories = models.PositiveIntegerField(default=0)  # positive integer field allows zero
     ingredients = models.ManyToManyField(to='meals.Ingredient', related_name='recipes', blank=True)
     tags = models.ManyToManyField(to='utils.Tag', related_name='tagged_recipes', blank=True)
+    requirements = models.TextField(blank=True, null=True)
+    instructions = models.TextField(blank=True, null=True)
 
     _MODEL_CODE = 'RP'
 
