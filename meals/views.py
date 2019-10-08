@@ -17,8 +17,8 @@ from utils.views_utils import eager_load
 from utils.pagination import MealPlannerPagination
 
 # app level imports
-from meals.models import MealType, Meal, Food, MealPlan
-from meals.serializers import MealTypeSerializer, MealSerializer, MealPlanSerializer, FoodSerializer
+from meals.models import MealType, Meal, Recipe, MealPlan
+from meals.serializers import MealTypeSerializer, MealSerializer, MealPlanSerializer, RecipeSerializer
 from meals.filters import MealFilter
 
 
@@ -70,14 +70,14 @@ class MealTypeViewSet(ReadOnlyMealAbstractViewSet):
     queryset = queryset_class.objects.none()
 
 
-class FoodViewSet(ReadOnlyMealAbstractViewSet):
+class RecipeViewSet(ReadOnlyMealAbstractViewSet):
     """
-    ReadOnly ModelViewSet for Food
+    ReadOnly ModelViewSet for Recipe
     """
-    serializer_class = FoodSerializer
+    serializer_class = RecipeSerializer
     filter_fields = ['id', 'name', 'slug']
     search_fields = ['name', 'slug']
-    queryset_class = Food
+    queryset_class = Recipe
     queryset = queryset_class.objects.none()
 
 
@@ -96,11 +96,11 @@ class MealViewSet(ReadOnlyMealAbstractViewSet):
     """
     ReadOnly ModelViewSet for Meal
 
-    `with_food` filter fetches all the Meals which are present in all of the foods passed as query param
-    Sample URL: https://meal-planner-hm.herokuapp.com/api/meals/meal/?with_food=2%2C4
+    `with_recipe` filter fetches all the Meals which are present in all of the recipes passed as query param
+    Sample URL: https://meal-planner-hm.herokuapp.com/api/meals/meal/?with_recipe=2%2C4
 
     `free` action is used to parse data through task 1 and fetch the relevant meal ids
-    Sample URL: https://meal-planner-hm.herokuapp.com/api/meals/meal/free?food_ids=1,11
+    Sample URL: https://meal-planner-hm.herokuapp.com/api/meals/meal/free?recipe_ids=1,11
     """
     serializer_class = MealSerializer
     filter_class = MealFilter

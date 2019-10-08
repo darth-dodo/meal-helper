@@ -8,6 +8,7 @@ from django.core.validators import MinValueValidator
 from utils.model_utils import AbstractRowInformation, AbstractNameAndDescription, custom_slugify
 
 # app level imports
+from .constants import HIGH, SHELF_LIFE_CHOICES, LOCAL, AVAILABILITY
 
 
 class MealType(AbstractRowInformation, AbstractNameAndDescription):
@@ -45,7 +46,7 @@ class Meal(AbstractRowInformation, AbstractNameAndDescription):
     Model to store Meal
     """
     meal_type = models.ForeignKey(to='meals.MealType', related_name='meals', on_delete=models.PROTECT)
-    foods = models.ManyToManyField(to='meals.Food', related_name='food_meals')
+    recipes = models.ManyToManyField(to='meals.Recipe', related_name='recipe_meals')
     tags = models.ManyToManyField(to='utils.Tag', related_name='tagged_meals', blank=True)
 
     _MODEL_CODE = 'ML'
@@ -74,33 +75,36 @@ class Meal(AbstractRowInformation, AbstractNameAndDescription):
         return '{0}/{1}'.format(self.meal_type.__str__(), super().__str__())
 
 
-class Food(AbstractRowInformation, AbstractNameAndDescription):
+class Recipe(AbstractRowInformation, AbstractNameAndDescription):
     """
-    Model to store Food
+    Model to store Recipe
     """
     calories = models.PositiveIntegerField(default=0)  # positive integer field allows zero
-    tags = models.ManyToManyField(to='utils.Tag', related_name='tagged_food', blank=True)
+    ingredients = models.ManyToManyField(to='meals.Ingredient', related_name='recipes', blank=True)
+    tags = models.ManyToManyField(to='utils.Tag', related_name='tagged_recipes', blank=True)
+    requirements = models.TextField(blank=True, null=True)
+    instructions = models.TextField(blank=True, null=True)
 
-    _MODEL_CODE = 'FD'
+    _MODEL_CODE = 'RP'
 
     @classmethod
     def from_db(cls, db, field_names, values):
-        new = super(Food, cls).from_db(db, field_names, values)
+        new = super(Recipe, cls).from_db(db, field_names, values)
         # cache existing value
         new._updated_name = values[field_names.index('name')]
         return new
 
     class Meta:
-        db_table = 'foods'
+        db_table = 'recipes'
 
     def save(self, *args, **kwargs):
-        new_food = True if not self.pk else False
+        new_recipe = True if not self.pk else False
 
         # name related operations
-        if new_food or hasattr(self, '_updated_name'):
+        if new_recipe or hasattr(self, '_updated_name'):
             self.slug = custom_slugify(self.name)
 
-        super(Food, self).save(*args, **kwargs)
+        super(Recipe, self).save(*args, **kwargs)
 
 
 class NutritionalInformation(AbstractRowInformation):
@@ -110,7 +114,7 @@ class NutritionalInformation(AbstractRowInformation):
     carbs = models.FloatField(validators=[MinValueValidator(limit_value=0)], default=0)
     fats = models.FloatField(validators=[MinValueValidator(limit_value=0)], default=0)
     protein = models.FloatField(validators=[MinValueValidator(limit_value=0)], default=0)
-    food = models.OneToOneField(to='meals.Food', on_delete=models.PROTECT)
+    recipe = models.OneToOneField(to='meals.Recipe', on_delete=models.PROTECT)
 
     class Meta:
         db_table = 'nutritional_informations'
@@ -145,3 +149,34 @@ class MealPlan(AbstractRowInformation, AbstractNameAndDescription):
             self.slug = custom_slugify(self.name)
 
         super(MealPlan, self).save(*args, **kwargs)
+
+
+class Ingredient(AbstractRowInformation, AbstractNameAndDescription):
+    """
+    Model to store Ingredient
+    """
+    shelf_life = models.CharField(max_length=2, choices=SHELF_LIFE_CHOICES, default=HIGH)
+    availability = models.CharField(max_length=2, choices=AVAILABILITY, default=LOCAL)
+
+    _MODEL_CODE = 'IG'
+
+    class Meta:
+        db_table = 'ingredients'
+
+    @classmethod
+    def from_db(cls, db, field_names, values):
+        new = super(Ingredient, cls).from_db(db, field_names, values)
+        # cache existing value
+        new._updated_name = values[field_names.index('name')]
+        return new
+
+    def save(self, *args, **kwargs):
+        new_ingredient = True if not self.pk else False
+
+        # name related operations
+        if new_ingredient or hasattr(self, '_updated_name'):
+            self.slug = custom_slugify(self.name)
+
+        super(Ingredient, self).save(*args, **kwargs)
+
+

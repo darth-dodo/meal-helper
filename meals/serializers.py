@@ -13,7 +13,7 @@ from utils.serializers_utils import EagerLoadingSerializerMixin
 from utils.models import Tag
 
 # app level imports
-from meals.models import MealType, Meal, Food, MealPlan, NutritionalInformation
+from meals.models import MealType, Meal, Recipe, MealPlan, NutritionalInformation
 
 
 logger = logging.getLogger(__name__)
@@ -37,9 +37,9 @@ class MealTypeMiniSerializer(serializers.ModelSerializer):
         fields = ('id', 'name', 'slug',)
 
 
-class FoodSerializer(serializers.ModelSerializer, EagerLoadingSerializerMixin):
+class RecipeSerializer(serializers.ModelSerializer, EagerLoadingSerializerMixin):
     """
-    Model Serializer for Food
+    Model Serializer for Recipe
     """
 
     tags = serializers.PrimaryKeyRelatedField(queryset=Tag.objects.all(), many=True)
@@ -47,17 +47,17 @@ class FoodSerializer(serializers.ModelSerializer, EagerLoadingSerializerMixin):
     _PREFETCH_RELATED_FIELDS = ['tags']
 
     class Meta:
-        model = Food
+        model = Recipe
         fields = '__all__'
 
 
-class FoodMiniSerializer(serializers.ModelSerializer):
+class RecipeMiniSerializer(serializers.ModelSerializer):
     """
-    Mini Model Serializer for Food
+    Mini Model Serializer for Recipe
     """
 
     class Meta:
-        model = Food
+        model = Recipe
         fields = ('id', 'name', 'slug',)
 
 
@@ -67,25 +67,25 @@ class MealSerializer(serializers.ModelSerializer, EagerLoadingSerializerMixin):
     """
 
     meal_type = serializers.PrimaryKeyRelatedField(queryset=MealType.objects.all())
-    foods = serializers.PrimaryKeyRelatedField(queryset=Food.objects.all(), many=True)
+    recipes = serializers.PrimaryKeyRelatedField(queryset=Recipe.objects.all(), many=True)
     tags = serializers.PrimaryKeyRelatedField(queryset=Tag.objects.all(), many=True)
 
-    foods_data = serializers.SerializerMethodField()
+    recipes_data = serializers.SerializerMethodField()
     meal_type_data = serializers.SerializerMethodField()
 
     _SELECT_RELATED_FIELDS = ['meal_type']
-    _PREFETCH_RELATED_FIELDS = ['foods', 'tags']
+    _PREFETCH_RELATED_FIELDS = ['recipes', 'tags']
 
     class Meta:
         model = Meal
-        fields = ('id', 'name', 'slug', 'description', 'is_active', 'created_at', 'modified_at', 'foods', 'tags',
-                  'meal_type', 'foods_data', 'meal_type_data')
+        fields = ('id', 'name', 'slug', 'description', 'is_active', 'created_at', 'modified_at', 'recipes', 'tags',
+                  'meal_type', 'recipes_data', 'meal_type_data')
 
     def get_meal_type_data(self, obj):
         return MealTypeMiniSerializer(obj.meal_type).data
 
-    def get_foods_data(self, obj):
-        return FoodMiniSerializer(obj.foods.all(), many=True).data
+    def get_recipes_data(self, obj):
+        return RecipeMiniSerializer(obj.recipes.all(), many=True).data
 
 
 class MealMiniSerializer(serializers.ModelSerializer):
