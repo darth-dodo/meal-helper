@@ -19,7 +19,6 @@ from utils.pagination import MealPlannerPagination
 # app level imports
 from meals.models import MealType, Meal, Food, MealPlan
 from meals.serializers import MealTypeSerializer, MealSerializer, MealPlanSerializer, FoodSerializer
-from meals.utils.meal_finder import get_matching_meals
 from meals.filters import MealFilter
 
 
@@ -108,24 +107,3 @@ class MealViewSet(ReadOnlyMealAbstractViewSet):
     search_fields = ['name', 'slug']
     queryset_class = Meal
     queryset = queryset_class.objects.none()
-
-    @action(detail=False, methods=['get'])
-    def free(self, request):
-        """
-        Sample URL: https://meal-planner-hm.herokuapp.com/api/meals/meal/free?food_ids=1,11
-        :return Response 200: Object containing List of meal ids
-        :return Response 400: Validation error with message
-        """
-        logger.debug('Data: {0} | User: {1}'.format(self.request.data, self.request.user))
-
-        food_ids = dict(request.query_params).get('food_ids', [''])[0].split(',')
-
-        # todo: custom exception handler and middleware to parse it
-        try:
-            meal_ids = get_matching_meals(food_ids=food_ids)
-        except ValueError as e:
-            return Response({"errors": "Something went wrong: {0}".format(e.__str__())},
-                            status=HTTP_400_BAD_REQUEST)
-
-        return Response({"meal_ids": meal_ids})
-

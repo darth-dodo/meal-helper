@@ -21,6 +21,7 @@ djangorestframework-jwt = "*"
 gunicorn = "*"
 django-filter = "*"
 django-grappelli = "*"
+werkzeug = "*"
 
 [requires]
 python_version = "3.7"
