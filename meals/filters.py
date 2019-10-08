@@ -9,34 +9,34 @@ import django_filters
 # project level imports
 
 # app level imports
-from meals.models import Meal, Food
+from meals.models import Meal, Recipe
 
 
 class MealFilter(django_filters.FilterSet):
     """
     Custom filter for Meal ViewSet
     """
-    with_food = django_filters.Filter(method='filter_for_foods')
+    with_recipe = django_filters.Filter(method='filter_for_recipes')
 
-    def filter_for_foods(self, queryset, name, value):
+    def filter_for_recipes(self, queryset, name, value):
         """
-        Finds Meals which contain all the Foods ID together
+        Finds Meals which contain all the Recipe ID together
         :param queryset: queryset output from `get_queryset`
         :param value: query param
         :return: Meal queryset
         """
         try:
-            food_ids_list = list(map(int, value.split(',')))
+            recipes_ids_list = list(map(int, value.split(',')))
         except ValueError:
             return queryset
 
-        foods = Food.objects.filter(id__in=food_ids_list)
+        recipes = Recipe.objects.filter(id__in=recipes_ids_list)
 
-        for food in foods:
-            queryset = queryset.filter(foods=food)
+        for recipe in recipes:
+            queryset = queryset.filter(recipes=recipe)
 
         return queryset
 
     class Meta:
         model = Meal
-        fields = ['id', 'name', 'slug', 'with_food']
+        fields = ['id', 'name', 'slug', 'with_recipe']

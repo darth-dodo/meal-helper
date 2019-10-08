@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from meals.models import MealType, Meal, Food, NutritionalInformation, MealPlan
+from meals.models import MealType, Meal, Recipe, NutritionalInformation, MealPlan
 
 # Register your models here.
 class MealAppAbstractAdmin(admin.ModelAdmin):
@@ -34,13 +34,13 @@ class MealAdmin(MealAppAbstractAdmin):
 admin.site.register(Meal, MealAdmin)
 
 
-class FoodAdmin(MealAppAbstractAdmin):
+class RecipeAdmin(MealAppAbstractAdmin):
 
     class Meta:
-        model = Food
+        model = Recipe
 
 
-admin.site.register(Food, FoodAdmin)
+admin.site.register(Recipe, RecipeAdmin)
 
 
 class MealPlanAdmin(MealAppAbstractAdmin):

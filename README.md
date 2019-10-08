@@ -7,7 +7,7 @@
 - [API Documentation](#api-documentation)
 
 ## Summary
-Web application for tracking Meals, Foods, MealPlans and Nutritional Information. Built using Django, Django REST Framework, Heroku, Metabase and Swagger
+Web application for tracking Recipes, Meals, MealPlans and Nutritional Information. Built using Django, Django REST Framework, Heroku, Metabase and Swagger
 
 ---
 
