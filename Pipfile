@@ -7,7 +7,7 @@ verify_ssl = true
 
 [packages]
 django = "==2.2"
-djangorestframework = "==3.8.2"
+djangorestframework = "==3.11.2"
 django-extensions = "*"
 ipython = "*"
 raven = "*"
